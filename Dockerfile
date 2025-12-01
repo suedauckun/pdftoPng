@@ -15,8 +15,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Tüm proje dosyalarını kopyala
 COPY . .
 
-# Railway port değişkeni
-ENV PORT=8000
-
-# FastAPI app başlat
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# --port ayarını Railway'in verdiği PORT değişkenine göre yapıyoruz.
+# Eğer PORT değişkeni yoksa (lokal test) 8000 kullanır.
+CMD uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}
