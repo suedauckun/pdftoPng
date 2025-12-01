@@ -1,23 +1,22 @@
-# Base image
-FROM python:3.11-slim
+FROM python:3.10-slim
 
-# System dependencies for pdf2image (Poppler)
+# Sistem bağımlılıkları (pdf2image için Poppler zorunlu)
 RUN apt-get update && apt-get install -y \
     poppler-utils \
-    && rm -rf /var/lib/apt/lists/*
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Set workdir
+# Çalışma dizini
 WORKDIR /app
 
-# Install requirements
+# Gereksinimleri kopyala ve kur
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy app code
+# Tüm proje dosyalarını kopyala
 COPY . .
 
-# Expose port
-EXPOSE 8000
+# Railway port değişkeni
+ENV PORT=8000
 
-# Start FastAPI
+# FastAPI app başlat
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
