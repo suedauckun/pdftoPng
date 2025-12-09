@@ -56,7 +56,7 @@ async def explode_pdf(file: UploadFile = File(...)):
             
             output_files.append({
                 "filename": f"page_{i+1}.pdf",
-                "data_b64": pikepdf_to_base64(new_pdf),
+               "data_b64": "data:application/pdf;base64," + pikepdf_to_base64(new_pdf),
                 "type": "single_page"
             })
             
