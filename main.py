@@ -19,7 +19,7 @@ async def pdf_to_png(file: UploadFile = File(...)):
     pdf_bytes = await file.read()
 
     try:
-        pages = convert_from_bytes(pdf_bytes, dpi=200)
+        pages = convert_from_bytes(pdf_bytes, dpi=300)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Görüntü oluşturma hatası: {str(e)}")
 
